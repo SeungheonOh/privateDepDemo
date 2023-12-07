@@ -1,3 +1,6 @@
+# This nix madness builds hackage tarball and metadata from scratch. Don't expect me to give a detailed explanation
+# on how this works.
+
 { system, pkgs, lib, ... }:
 rec {
   mkPackageSpec = src:
@@ -110,6 +113,7 @@ rec {
   mkHackage = compiler-nix-name: srcs:
     let
       # from mlabs-tooling.nix.
+      # Probably don't need ifd, will refactor this if I get a chance
       hackages = [ (mkHackageFromSpec compiler-nix-name (map mkPackageSpec srcs)) ];
       ifd-parallel =
         pkgs.runCommandNoCC "ifd-parallel"
